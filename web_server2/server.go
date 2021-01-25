@@ -24,7 +24,7 @@ func (Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		<body>
 			<form action="/" method="post">
 				<input type="text" name="input_value">
-				<input type="submit" name="送信"><br>
+				<input type="submit" value="送信"><br>
 				入力値：` + html.EscapeString(v) + `
 			</form>
 		</body>

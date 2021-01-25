@@ -8,7 +8,7 @@ import (
 
 func main() {
 	if err := readLine("foo.txt"); err != nil {
-		//fmt.Println(os.Stderr, err)
+		fmt.Println(os.Stderr, err)
 		os.Exit(1)
 	}
 }
