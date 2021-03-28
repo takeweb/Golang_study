@@ -7,10 +7,12 @@ import (
 )
 
 func main() {
+	fmt.Println("START")
 	paths := dirWalk("./test")
 	for _, path := range paths {
 		fmt.Println(path)
 	}
+	fmt.Println("END")
 }
 
 func dirWalk(dir string) []string {

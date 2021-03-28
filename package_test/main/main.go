@@ -3,8 +3,8 @@ package main
 import (
 	"workpkg/workhello"
 
-	"../package3/workhello3"
-	"./package2/workhello2"
+	"local.packages/workhello2"
+	"local.packages/workhello3"
 )
 
 func main() {
