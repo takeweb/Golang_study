@@ -12,8 +12,8 @@ func main() {
 	x := input("input data")
 	ar := strings.Split(x, " ")
 	t := 0
-	for i := 0; i < len(ar); i++ {
-		n, er := strconv.Atoi(ar[i])
+	for _, v := range ar {
+		n, er := strconv.Atoi(v)
 		if er != nil {
 			goto err
 		}
