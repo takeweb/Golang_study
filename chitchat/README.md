@@ -19,3 +19,34 @@
 3. psql -f data/setup.sql -d chitchat
 4. go build
 5. ./chitchat
+
+brew install postgresql@9.6
+
+echo 'export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+
+brew services start postgresql@9.6
+
+createuser --superuser --createdb --createrole postgres
+
+export LDFLAGS="-L/usr/local/opt/postgresql@9.6/lib"
+export CPPFLAGS="-I/usr/local/opt/postgresql@9.6/include"
+export PKG_CONFIG_PATH="/usr/local/opt/postgresql@9.6/lib/pkgconfig"
+
+
+createuser -P -d gwp
+take0014
+
+createdb gwp
+
+psql -U gwp -f setup.sql -d gwp
+
+psql -U gwp -d gwp
+
+\d+ posts
+
+
+brew services list
+brew services start postgresql@9.6
+brew services stop postgresql@9.6
+

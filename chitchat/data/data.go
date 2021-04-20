@@ -6,6 +6,8 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+
+	_ "github.com/lib/pq"
 )
 
 // Db comment
@@ -17,7 +19,7 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return
+	// return
 }
 
 // create a random UUID with from RFC 4122
