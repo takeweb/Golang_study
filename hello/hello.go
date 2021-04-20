@@ -27,4 +27,3 @@ func main() {
 	// Webサーバを起動
 	http.ListenAndServe(":4000", Server{})
 }
-
