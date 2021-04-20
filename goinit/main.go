@@ -11,16 +11,14 @@ import (
 )
 
 func main() {
-	const defDir string = "/Users/taketomooishi/dev/Golang_study/"
-	const defFilename string = "main.go"
-
 	var dir string
 	var module string
 	var file string
 
+	// コマンドライン引数取得
 	flag.StringVar(&module, "m", "test", "mosule to make")
-	flag.StringVar(&dir, "d", defDir, "base dir to make")
-	flag.StringVar(&file, "f", defFilename, "filename to make")
+	flag.StringVar(&dir, "d", config.DefDir, "base dir to make")
+	flag.StringVar(&file, "f", config.DefFilename, "filename to make")
 	flag.Parse()
 
 	// ディレクトリ作成
@@ -32,7 +30,7 @@ func main() {
 	fmt.Println(module)
 
 	// テンプレートファイルコピー
-	fromFile := filepath.Join(dir, "goinit", "template", defFilename)
+	fromFile := filepath.Join(dir, "goinit", "template", config.DefFilename)
 	toFile := filepath.Join(targetDir, file)
 	copyFile(fromFile, toFile)
 
