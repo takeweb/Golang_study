@@ -2,8 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"path/filepath"
+
 	// "errors"
-	"fmt"
 
 	// "html/template"
 	"log"
@@ -20,12 +21,13 @@ type Configuration struct {
 }
 
 var config Configuration
+
 var logger *log.Logger
 
 // Convenience function for printing to stdout
-func p(a ...interface{}) {
-	fmt.Println(a...)
-}
+// func p(a ...interface{}) {
+// 	fmt.Println(a...)
+// }
 
 func init() {
 	loadConfig()
@@ -37,7 +39,11 @@ func init() {
 }
 
 func loadConfig() {
-	file, err := os.Open("config.json")
+	// 環境変数を設定
+	os.Setenv("GOINIT_CONF", "/Users/taketomooishi/dev/Golang_study/goinit")
+
+	filename := filepath.Join(os.Getenv("GOINIT_CONF"), "config.json")
+	file, err := os.Open(filename)
 	if err != nil {
 		log.Fatalln("Cannot open config file", err)
 	}
