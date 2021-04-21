@@ -1,5 +1,5 @@
-◆普通に使えるコマンド化
-go install goinit
+◆インストール(設定ファイルを配置、GOPATH/binに追加)
+./install.sh
 
 ◆「hogehoge」というモジュールを作成したい場合
 goinit -m hogehoge
@@ -7,7 +7,7 @@ goinit -m hogehoge
 
 ◆「hogehoge」というモジュールを任意のフォルダに作成したい場合
 goinit -m hogehoge -d /usr/local/dev
-※「-d」省略時は「/Users/taketomooishi/dev/Golang_study/」というディレクトリ配下に作成される。
+※「-d」省略時は「~/dev/Golang_study/」というディレクトリ配下に作成される。
 
 ◆「hogehoge.go」というファイル名で作成したい場合
 goinit -m hogehoge -f hogehoge

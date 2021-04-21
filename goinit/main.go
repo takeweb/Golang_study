@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"os/exec"
@@ -17,7 +16,7 @@ func main() {
 
 	// コマンドライン引数取得
 	flag.StringVar(&module, "m", "test", "mosule to make")
-	flag.StringVar(&dir, "d", config.DefDir, "base dir to make")
+	flag.StringVar(&dir, "d", filepath.Join(GetHomeDir(), config.DefDir), "base dir to make")
 	flag.StringVar(&file, "f", config.DefFilename, "filename to make")
 	flag.Parse()
 
@@ -32,7 +31,7 @@ func main() {
 	// テンプレートファイルコピー
 	fromFile := filepath.Join(dir, "goinit", "template", config.DefFilename)
 	toFile := filepath.Join(targetDir, file)
-	copyFile(fromFile, toFile)
+	CopyFile(fromFile, toFile)
 
 	// ターゲットディレクトリへ移動
 	if err := os.Chdir(targetDir); err != nil {
@@ -53,22 +52,5 @@ func main() {
 	if err_o != nil {
 		log.Fatal(err)
 		os.Exit(1)
-	}
-}
-
-func copyFile(fromFile string, toFile string) {
-	f, err := os.Open(fromFile)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	t, err := os.Create(toFile)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	_, err = io.Copy(t, f)
-	if err != nil {
-		log.Fatal(err)
 	}
 }

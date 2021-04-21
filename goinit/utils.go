@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"io"
 	"path/filepath"
+	"runtime"
 
 	// "errors"
 
@@ -39,10 +41,16 @@ func init() {
 }
 
 func loadConfig() {
-	// 環境変数を設定
-	os.Setenv("GOINIT_CONF", "/Users/taketomooishi/dev/Golang_study/goinit")
+	// ホームディレクトリを取得
+	var configDir string
+	home := os.Getenv("HOME")
+	if home == "" && runtime.GOOS == "windows" {
+		configDir = os.Getenv("APPDATA")
+	} else {
+		configDir = filepath.Join(home, ".config")
+	}
 
-	filename := filepath.Join(os.Getenv("GOINIT_CONF"), "config.json")
+	filename := filepath.Join(configDir, "goinit", "config.json")
 	file, err := os.Open(filename)
 	if err != nil {
 		log.Fatalln("Cannot open config file", err)
@@ -114,4 +122,32 @@ func warning(args ...interface{}) {
 // version
 func version() string {
 	return "0.1"
+}
+
+// ファイルをコピー
+func CopyFile(fromFile string, toFile string) {
+	f, err := os.Open(fromFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	t, err := os.Create(toFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = io.Copy(t, f)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+// ホームディレクトリを取得
+func GetHomeDir() string {
+	var homeDir string
+	home := os.Getenv("HOME")
+	if home == "" && runtime.GOOS == "windows" {
+		homeDir = os.Getenv("HOMEPATH")
+	}
+	return homeDir
 }
