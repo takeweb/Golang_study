@@ -1,5 +1,5 @@
 {
-  "DefDir"       : "/Users/taketomooishi/dev/Golang_study/",
+  "DefDir"       : "dev/Golang_study/",
   "DefFilename"  : "main.go",
   "LogFinename"  : "goinit.log"
 }
