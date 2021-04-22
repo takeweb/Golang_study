@@ -7,17 +7,41 @@ import (
 )
 
 type JsonData struct {
-	A string
-	B string `json:"code"`
-	C int    `json:",string"`
-	D string `json:",omitempty"`
-	E string `json:"-"`
+	A       string
+	B       string   `json:"code"`
+	C       int      `json:",string"`
+	D       string   `json:",omitempty"`
+	E       string   `json:"-"`
+	Targets []target `json:"target"`
+}
+
+type target struct {
+	Name      string `json:"name"`
+	Threshold int    `json:"threshold"`
+}
+
+func main() {
+	// URLに関数を登録
+	http.HandleFunc("/json", jsonHandler)
+	http.HandleFunc("/html", htmlHandler)
+
+	// Webサーバ起動
+	if err := http.ListenAndServe(":4000", nil); err != nil {
+		fmt.Println(err)
+	}
 }
 
 func jsonHandler(w http.ResponseWriter, r *http.Request) {
 	// 構造体をJSONデータに変換して出力
-	data := JsonData{A: "データ１", B: "データ２", C: 2, D: "", E: "データ５"}
-	j, err := json.Marshal(data)
+	data := JsonData{
+		A: "データ１",
+		B: "データ２",
+		C: 2, D: "",
+		E: "データ５",
+		Targets: []target{
+			{Name: "taro", Threshold: 3},
+			{Name: "jiro", Threshold: 4}}}
+	j, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -43,15 +67,4 @@ func htmlHandler(w http.ResponseWriter, r *http.Request) {
 	</html>
 	`
 	fmt.Fprint(w, h)
-}
-
-func main() {
-	// URLに関数を登録
-	http.HandleFunc("/json", jsonHandler)
-	http.HandleFunc("/html", htmlHandler)
-
-	// Webサーバ起動
-	if err := http.ListenAndServe(":4000", nil); err != nil {
-		fmt.Println(err)
-	}
 }
