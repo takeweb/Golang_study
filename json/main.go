@@ -36,11 +36,16 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
 	data := JsonData{
 		A: "データ１",
 		B: "データ２",
-		C: 2, D: "",
+		C: 2,
+		D: "",
 		E: "データ５",
 		Targets: []target{
-			{Name: "taro", Threshold: 3},
-			{Name: "jiro", Threshold: 4}}}
+			{
+				Name:      "taro",
+				Threshold: 3},
+			{
+				Name:      "jiro",
+				Threshold: 4}}}
 	j, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		fmt.Println(err)
