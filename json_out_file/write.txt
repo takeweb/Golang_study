@@ -1,0 +1,15 @@
+{
+  "A": "データ１",
+  "code": "データ２",
+  "C": "2",
+  "target": [
+    {
+      "name": "taro",
+      "threshold": 3
+    },
+    {
+      "name": "jiro",
+      "threshold": 4
+    }
+  ]
+}
