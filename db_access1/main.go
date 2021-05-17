@@ -33,6 +33,7 @@ func main() {
 	if er != nil {
 		panic(er)
 	}
+
 	for rs.Next() {
 		var md Mydata
 		er := rs.Scan(&md.ID, &md.Name, &md.Email, &md.Age)
