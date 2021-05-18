@@ -22,7 +22,7 @@ func (m *Mydata) Str() string {
 	return "<\"" + strconv.Itoa(m.ID) + ":" + m.Name + "\" " + m.Email + "," + strconv.Itoa(m.Age) + ">"
 }
 
-var qry string = "SELECT * FROM mydata WHERE name like ?"
+var qry string = "SELECT * FROM mydata WHERE name LIKE ? OR mail LIKE ?"
 
 func main() {
 	con, er := sql.Open("sqlite3", "data.sqlite3")
@@ -32,12 +32,12 @@ func main() {
 	defer con.Close()
 
 	for {
-		s := console_util.Input("find from Name")
+		s := console_util.Input("find from Name or Email")
 		if s == "" {
 			break
 		}
 
-		rs, er := con.Query(qry, "%"+s+"%")
+		rs, er := con.Query(qry, "%"+s+"%", "%"+s+"%")
 		if er != nil {
 			panic(er)
 		}
