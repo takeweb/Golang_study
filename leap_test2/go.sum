@@ -1,2 +1,2 @@
-github.com/takeweb/golang_lib/date_util v0.0.0-20210408002543-07114f97e789 h1:/QoLNSofwiF4Wgvzg40D1MFJyKQqTjiq03bFjXmlZ4g=
-github.com/takeweb/golang_lib/date_util v0.0.0-20210408002543-07114f97e789/go.mod h1:5rF6OLFaVsMJgH/uibOtAkhMviUn1k/hQ20gugtfU6s=
+github.com/takeweb/date-util v1.0.1 h1:AU7M1uaXqxXoqC9MUNQoXEdcCm4k0uN8J2ifGRI5AnE=
+github.com/takeweb/date-util v1.0.1/go.mod h1:1vozUZF4Veo6HJlO677lPaFMKLX/dHklrggaHD2IqJc=
