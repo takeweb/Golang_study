@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/takeweb/golang_lib/console_util"
+	"github.com/takeweb/console-util"
 )
 
 // Mydata is structure
@@ -29,9 +29,9 @@ func main() {
 	}
 	defer con.Close()
 
-	nm := console_util.Input("Input name")
-	nl := console_util.Input("Input mail")
-	age := console_util.Input("Input age")
+	nm := console.Input("Input name")
+	nl := console.Input("Input mail")
+	age := console.Input("Input age")
 	ag, _ := strconv.Atoi(age)
 
 	qry := "INSERT INTO mydata(name, mail, age) values (?, ?, ?)"

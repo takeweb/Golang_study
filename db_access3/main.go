@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/takeweb/golang_lib/console_util"
+	"github.com/takeweb/console-util"
 )
 
 // Mydata is structure
@@ -32,7 +32,7 @@ func main() {
 	defer con.Close()
 
 	for {
-		s := console_util.Input("find from Name or Email")
+		s := console.Input("find from Name or Email")
 		if s == "" {
 			break
 		}
