@@ -1,0 +1,4 @@
+github.com/mattn/go-sqlite3 v1.14.7 h1:fxWBnXkxfM6sRiuH3bqJ4CfzZojMOLVc0UTsTglEghA=
+github.com/mattn/go-sqlite3 v1.14.7/go.mod h1:NyWgC/yNuGj7Q9rpYnZvas74GogHl5/Z4A/KQRfk6bU=
+github.com/takeweb/golang_lib/console_util v0.0.0-20210519230509-9274e4364b22 h1:qKgkeKRhRb6QdGpZCDWMzdeYpDSi44u/pd13w9rPECo=
+github.com/takeweb/golang_lib/console_util v0.0.0-20210519230509-9274e4364b22/go.mod h1:spr+Jb6/LtE3a5GWoYe5fiN/7iYrLgOlbBvUp+yFsXE=
