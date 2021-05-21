@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/takeweb/golang_lib/console_util"
+	"github.com/takeweb/console-util"
 )
 
 // Mydata is structure
@@ -29,7 +29,7 @@ func main() {
 	}
 	defer con.Close()
 
-	ids := console_util.Input("Input update ID")
+	ids := console.Input("Input update ID")
 	id, _ := strconv.Atoi(ids)
 
 	qry := "SELECT * FROM mydata WHERE id = ?"
@@ -37,7 +37,7 @@ func main() {
 	tgt := mydatafmRw(rw)
 	fmt.Println(tgt.Str())
 
-	f := console_util.Input("Delete it? (y/n)")
+	f := console.Input("Delete it? (y/n)")
 	if f == "y" {
 		qry = "DELETE FROM mydata WHERE id = ?"
 		con.Exec(qry, id)

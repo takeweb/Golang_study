@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/takeweb/golang_lib/console_util"
+	"github.com/takeweb/console-util"
 )
 
 // Mydata is structure
@@ -29,16 +29,16 @@ func main() {
 	}
 	defer con.Close()
 
-	ids := console_util.Input("Input update ID")
+	ids := console.Input("Input update ID")
 	id, _ := strconv.Atoi(ids)
 
 	qry := "SELECT * FROM mydata WHERE id = ?"
 	rw := con.QueryRow(qry, id)
 	tgt := mydatafmRw(rw)
 	ae := strconv.Itoa(tgt.Age)
-	nm := console_util.Input("name(" + tgt.Name + ")")
-	ml := console_util.Input("mail(" + tgt.Email + ")")
-	ge := console_util.Input("name(" + ae + ")")
+	nm := console.Input("name(" + tgt.Name + ")")
+	ml := console.Input("mail(" + tgt.Email + ")")
+	ge := console.Input("name(" + ae + ")")
 	ag, _ := strconv.Atoi(ge)
 
 	if nm == "" {
