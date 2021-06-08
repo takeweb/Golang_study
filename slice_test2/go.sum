@@ -1,2 +1,2 @@
-github.com/takeweb/golang_lib/slice_util v0.0.0-20210414233628-d723ee422b9c h1:4I2cn7v8+AdNSVra1gRC+G0/XU1qZ3AZPZoEsBoMOdo=
-github.com/takeweb/golang_lib/slice_util v0.0.0-20210414233628-d723ee422b9c/go.mod h1:9SNuR2Jl2QQv8qi6vjaXU9VG3EvAcWz55YhTtEdmMFU=
+github.com/takeweb/slice v1.0.3 h1:Pr+wRKP65AQjG7fJckX58EF/CJHT4ReD0e3WKrDFO0w=
+github.com/takeweb/slice v1.0.3/go.mod h1:2jIfFxSc4jQrBnfZywlBq7CcRTdz7BuLA4n/UpBMCPQ=

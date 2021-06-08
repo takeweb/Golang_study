@@ -1,4 +1,4 @@
 github.com/mattn/go-sqlite3 v1.14.7 h1:fxWBnXkxfM6sRiuH3bqJ4CfzZojMOLVc0UTsTglEghA=
 github.com/mattn/go-sqlite3 v1.14.7/go.mod h1:NyWgC/yNuGj7Q9rpYnZvas74GogHl5/Z4A/KQRfk6bU=
-github.com/takeweb/console-util v1.0.1 h1:fZhJqVabygav51bPen//M5ss+7BSpm6sj0BndvdcBfY=
-github.com/takeweb/console-util v1.0.1/go.mod h1:DvIfLdUjgEgfv5tS2iSTfWfT2J8BOn7rAFJ6Zsbtgn0=
+github.com/takeweb/console v1.0.2 h1:mmX618mDY1tOxoj1VGAFtVM7aU2pWbDyy7Ie65t3TaU=
+github.com/takeweb/console v1.0.2/go.mod h1:473//DUYQ7KmAsIS+FywNQ5coV+Zc2wvD98XSZs91Mw=

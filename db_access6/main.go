@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/takeweb/console-util"
+	"github.com/takeweb/console"
 )
 
 // Mydata is structure
