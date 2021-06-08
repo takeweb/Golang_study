@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/takeweb/date-util"
+	"github.com/takeweb/date"
 )
 
 func main() {
