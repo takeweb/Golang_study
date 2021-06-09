@@ -62,7 +62,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	var pl []my.Post
-	db.where("group_id > 0").Order("create_at desc").Limit(10).Find(&pl)
+	db.Where("group_id > 0").Order("create_at desc").Limit(10).Find(&pl)
 
 	var gl []my.Group
 	db.Order("create_at desc").Limit(10).Find(&gl)
@@ -171,7 +171,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	db.Where("user_id=?", user.ID).Order("create_at desc").Limit(10).Find(&pts)
 	db.Where("user_id=?", user.ID).Order("create_at desc").Limit(10).Find(&gps)
 
-	itm := struct {
+	item := struct {
 		Title   string
 		Message string
 		Name    string
@@ -216,9 +216,129 @@ func group(w http.ResponseWriter, r *http.Request) {
 		db.Create(&pt)
 	}
 
+	var grp my.Group
+	var pts []my.Post
+
+	db.Where("id=?, gid").First(&grp)
+	db.Order("created_at desc").Model(&grp).Related(&pts)
+
+	item := struct {
+		Title   string
+		Message string
+		Name    string
+		Account string
+		Glist   my.Group
+		Plist   []my.Post
+	}{
+		Title:   "Group",
+		Message: "Group id=" + gid,
+		Name:    user.Name,
+		Account: user.Account,
+		Glist:   grp,
+		Plist:   pts,
+	}
+	er := page("group").Execute(w, item)
+	if er != nil {
+		log.Fatal(er)
+	}
+}
+
+// login handler.
+func login(w http.ResponseWriter, r *http.Request) {
+	item := struct {
+		Title   string
+		Message string
+		Account string
+	}{
+		Title:   "Login",
+		Message: "type your account & password:",
+		Account: "",
+	}
+
+	if r.Method == "GET" {
+		er := page("login").Execute(w, item)
+		if er != nil {
+			log.Fatal(er)
+		}
+		return
+	}
+
+	if r.Method == "POST" {
+		db, _ := gorm.Open(dbDriver, dbName)
+		defer db.Close()
+
+		usr := r.PostFormValue("account")
+		pass := r.PostFormValue("pass")
+		item.Account = usr
+
+		// check account and password
+		var re int
+		var user my.User
+
+		db.Where("account = ? and password = ?", usr, pass).Find(&user).Count(&re)
+		if re <= 0 {
+			item.Message = "Wrong account or password."
+			page("login").Execute(w, item)
+			return
+		}
+
+		// logined.
+		ses, _ := cs.Get(r, sesName)
+		ses.Values["login"] = true
+		ses.Values["account"] = usr
+		ses.Values["name"] = user.Name
+		ses.Save(r, w)
+		http.Redirect(w, r, "/", 302)
+	}
+
+	er := page("login").Execute(w, item)
+	if er != nil {
+		log.Fatal(er)
+	}
+}
+
+// logout handler.
+func logout(w http.ResponseWriter, r *http.Request) {
+	ses, _ := cs.Get(r, sesName)
+	ses.Values["login"] = nil
+	ses.Values["account"] = nil
+	ses.Save(r, w)
+	http.Redirect(w, r, "login", 302)
 }
 
 // main program.
 func main() {
+	// index handling.
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		index(w, r)
+	})
+
+	// home handling.
+	http.HandleFunc("/home", func(w http.ResponseWriter, r *http.Request) {
+		home(w, r)
+	})
+
+	// post handling.
+	http.HandleFunc("/post", func(w http.ResponseWriter, r *http.Request) {
+		post(w, r)
+	})
+
+	// group handling.
+	http.HandleFunc("/group", func(w http.ResponseWriter, r *http.Request) {
+		group(w, r)
+	})
+
+	// login handling.
+	http.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
+		login(w, r)
+	})
+
+	// logout handling.
+	http.HandleFunc("/logout", func(w http.ResponseWriter, r *http.Request) {
+		logout(w, r)
+	})
+
+	http.ListenAndServe(":40001", nil)
+
 	// my.Migrate()
 }
