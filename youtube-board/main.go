@@ -25,7 +25,7 @@ var cs = sessions.NewCookieStore([]byte("secret-key-1234"))
 func checkLogin(w http.ResponseWriter, r *http.Request) *my.User {
 	ses, _ := cs.Get(r, sesName)
 	if ses.Values["login"] == nil || !ses.Values["login"].(bool) {
-		http.Redirect(w, r, "login", 302)
+		http.Redirect(w, r, "login", http.StatusFound)
 	}
 
 	ac := ""
@@ -62,10 +62,10 @@ func index(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	var pl []my.Post
-	db.Where("group_id > 0").Order("create_at desc").Limit(10).Find(&pl)
+	db.Where("group_id > 0").Order("created_at desc").Limit(10).Find(&pl)
 
 	var gl []my.Group
-	db.Order("create_at desc").Limit(10).Find(&gl)
+	db.Order("created_at desc").Limit(10).Find(&gl)
 
 	item := struct {
 		Title   string
@@ -82,7 +82,9 @@ func index(w http.ResponseWriter, r *http.Request) {
 		Plist:   pl,
 		Glist:   gl,
 	}
-	er := page("index").Execute(w, item)
+	temps, _ := template.ParseFiles("templates/index.html", "templates/head.html", "templates/foot.html")
+	// er := page("index").Execute(w, item)
+	er := temps.Execute(w, item)
 	if er != nil {
 		log.Fatal(er)
 	}
@@ -111,7 +113,7 @@ func post(w http.ResponseWriter, r *http.Request) {
 	var cmts []my.CommentJoin
 
 	db.Where("id = ?", pid).First(&pst)
-	db.Table("comments").Select("comments.*, users.id, users.name").Joins("JOIN users ON users.id = comments.user_id").Where("comments.post_id = ?", pid).Order("create_at desc").Find(&cmts)
+	db.Table("comments").Select("comments.*, users.id, users.name").Joins("JOIN users ON users.id = comments.user_id").Where("comments.post_id = ?", pid).Order("created_at desc").Find(&cmts)
 
 	item := struct {
 		Title   string
@@ -168,8 +170,8 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 	var pts []my.Post
 	var gps []my.Group
-	db.Where("user_id=?", user.ID).Order("create_at desc").Limit(10).Find(&pts)
-	db.Where("user_id=?", user.ID).Order("create_at desc").Limit(10).Find(&gps)
+	db.Where("user_id=?", user.ID).Order("created_at desc").Limit(10).Find(&pts)
+	db.Where("user_id=?", user.ID).Order("created_at desc").Limit(10).Find(&gps)
 
 	item := struct {
 		Title   string
@@ -288,7 +290,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 		ses.Values["account"] = usr
 		ses.Values["name"] = user.Name
 		ses.Save(r, w)
-		http.Redirect(w, r, "/", 302)
+		http.Redirect(w, r, "/", http.StatusFound)
 	}
 
 	er := page("login").Execute(w, item)
@@ -303,11 +305,13 @@ func logout(w http.ResponseWriter, r *http.Request) {
 	ses.Values["login"] = nil
 	ses.Values["account"] = nil
 	ses.Save(r, w)
-	http.Redirect(w, r, "login", 302)
+	http.Redirect(w, r, "login", http.StatusFound)
 }
 
 // main program.
 func main() {
+	// my.Migrate()
+
 	// index handling.
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		index(w, r)
@@ -338,7 +342,5 @@ func main() {
 		logout(w, r)
 	})
 
-	http.ListenAndServe(":40001", nil)
-
-	// my.Migrate()
+	http.ListenAndServe(":40000", nil)
 }

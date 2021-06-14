@@ -1,0 +1,14 @@
+{{ template "header" .}}
+<p>{{ .Message }}</p>
+<form method="post" action="/logout">
+    <div class="form-group">
+        <label for="Account">Account(mail address)</label>
+        <input type="mail" class="form-control" id="account" name="account">
+    </div>
+    <div class="form-group">
+        <label for="pass">Password:</label>
+        <input type="password" class="form-control" id="pass" name="pass">
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Click</button>
+</form>
+{{ template "footer" .}}
