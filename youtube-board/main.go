@@ -62,7 +62,8 @@ func index(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	var pl []my.Post
-	db.Where("group_id > 0").Order("created_at desc").Limit(10).Find(&pl)
+	// db.Where("group_id > 0").Order("created_at desc").Limit(10).Find(&pl)
+	db.Order("created_at desc").Limit(10).Find(&pl)
 
 	var gl []my.Group
 	db.Order("created_at desc").Limit(10).Find(&gl)
@@ -82,9 +83,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		Plist:   pl,
 		Glist:   gl,
 	}
-	temps, _ := template.ParseFiles("templates/index.html", "templates/head.html", "templates/foot.html")
-	// er := page("index").Execute(w, item)
-	er := temps.Execute(w, item)
+	er := page("index").Execute(w, item)
 	if er != nil {
 		log.Fatal(er)
 	}
@@ -221,7 +220,7 @@ func group(w http.ResponseWriter, r *http.Request) {
 	var grp my.Group
 	var pts []my.Post
 
-	db.Where("id=?, gid").First(&grp)
+	db.Where("id=?", gid).First(&grp)
 	db.Order("created_at desc").Model(&grp).Related(&pts)
 
 	item := struct {
@@ -229,14 +228,14 @@ func group(w http.ResponseWriter, r *http.Request) {
 		Message string
 		Name    string
 		Account string
-		Glist   my.Group
+		Group   my.Group
 		Plist   []my.Post
 	}{
 		Title:   "Group",
 		Message: "Group id=" + gid,
 		Name:    user.Name,
 		Account: user.Account,
-		Glist:   grp,
+		Group:   grp,
 		Plist:   pts,
 	}
 	er := page("group").Execute(w, item)
