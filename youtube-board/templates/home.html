@@ -12,16 +12,16 @@
         <label for="message" class="h6">Message:</label>
         <input type="text" class="form-control" id="message" name="message">
     </div>
-    <button type="submit" class="btn btn-primary mb-2">Post group.</button>
+    <button type="submit" class="btn btn-primary mb-2">Post movie.</button>
 </form>
 <h5 class="mt-3">Post list.</h5>
 {{ range $n,$Item := .Plist }}
 <div class="media border m-1 p-2">
     <a href="/post?pid={{$Item.Model.ID}}">
-        <img class="mr-3" src="https://img.youtube.com/vi/{{ $Item.Address }}/default.jpg" alt="Generic placeholder image">
+        <img class="mr-3" src="https://img.youtube.com/vi/{{$Item.Address}}/default.jpg" alt="Generic placeholder image">
     </a>
     <div class="media-body">
-        <h5 class="mt-0">{{ Item.Address }}</h5>
+        <h5 class="mt-0">{{$Item.Address}}</h5>
         {{ $Item.Message }}
     </div>
 </div>
@@ -44,8 +44,8 @@
 {{ range $n, $Item := .Glist }}
 <div class="media border m-1 p-2">
     <div class="media-body">
-        <a href="/group?gid={{ $Item.ID }}"><h5 class="mt-0">{{ $Item.Name }}</h5></a>
-        {{ $Item.Message }}
+        <a href="/group?gid={{$Item.ID}}"><h5 class="mt-0">{{$Item.Name}}</h5></a>
+        {{$Item.Message}}
     </div>
 </div>
 {{ end }}

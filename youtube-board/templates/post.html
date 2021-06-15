@@ -5,14 +5,14 @@
 
 <div class="card m-1 p-2 text-center">
     <div>
-        <iframe width="500" height="315" src="https://www.youtube.com/embed/{{ .Post.Address }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="500" height="315" src="https://www.youtube.com/embed/{{.Post.Address}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="card-body">
-        <h5 class="mt-0">{{ .Post.Message }}</h5>
+        <h5 class="mt-0">{{.Post.Message}}</h5>
     </div>
 </div>
 
-<form method="post" action="/post?pid={{ .Post.ID }}">
+<form method="post" action="/post?pid={{.Post.ID}}">
     <div class="form-group mt-4">
         <label for="message" class="h6">New Comment:</label>
         <textarea class="form-control" id="message" name="message"></textarea>
@@ -23,7 +23,7 @@
 {{ range $n,$Item := .Clist }}
 <div class="media border m-1 p-2">
     <div class="media-body">
-        <h6 class="mt-0">{{ Item.Comment.Message }} ({{ $Item.Name }})</h6>
+        <h6 class="mt-0">{{ $Item.Comment.Message }} ({{ $Item.Name }})</h6>
     </div>
 </div>
 {{ end }}

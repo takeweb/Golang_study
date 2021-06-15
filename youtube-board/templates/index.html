@@ -5,19 +5,19 @@
 {{ range $n,$Item := .Plist }}
 <div class="media border m-1 p-2">
     <a href="/post?pid={{$Item.Model.ID}}">
-        <img class="mr-3" src="https://img.youtube.com/vi/{{ $Item.Address }}/default.jpg" alt="Generic placeholder image">
+        <img class="mr-3" src="https://img.youtube.com/vi/{{$Item.Address}}/default.jpg" alt="Generic placeholder image">
     </a>
     <div class="media-body">
-        <h5 class="mt-0">{{ Item.Address }}</h5>
+        <h5 class="mt-0">{{ $Item.Address }}</h5>
         {{ $Item.Message }}
     </div>
 </div>
 {{ end }}
 
 <h4 class="mt-4">Group list.</h4>
-{{ range $n,$Item := Glist }}
+{{ range $n,$Item := .Glist }}
 <div class="media-body">
-    <a href="/group?gid={{ $Item.ID }}"><h5 class="mt-0">{{ Item.Name }}</h5></a>
+    <a href="/group?gid={{$Item.ID}}"><h5 class="mt-0">{{ $Item.Name }}</h5></a>
     {{ $Item.Message }}
 </div>
 {{ end }}
