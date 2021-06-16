@@ -42,11 +42,11 @@ func checkLogin(w http.ResponseWriter, r *http.Request) *my.User {
 	return &user
 }
 
-// Template for no-template.
-func notemp() *template.Template {
-	tmp, _ := template.New("index").Parse("NO PAGE.")
-	return tmp
-}
+// // Template for no-template.
+// func notemp() *template.Template {
+// 	tmp, _ := template.New("index").Parse("NO PAGE.")
+// 	return tmp
+// }
 
 // get target Template.
 func page(fname string) *template.Template {
@@ -147,9 +147,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 		case "post":
 			ad := r.PostFormValue("address")
 			ad = strings.TrimSpace(ad)
-			if strings.HasPrefix(ad, "https://youtu.be/") {
-				ad = strings.TrimPrefix(ad, "https://youtu.be/")
-			}
+			ad = strings.TrimPrefix(ad, "https://youtu.be/")
 
 			pt := my.Post{
 				UserId:  int(user.Model.ID),
@@ -204,9 +202,7 @@ func group(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		ad := r.PostFormValue("address")
 		ad = strings.TrimSpace(ad)
-		if strings.HasPrefix(ad, "https://youtu.be/") {
-			ad = strings.TrimPrefix(ad, "https://youtu.be/")
-		}
+		ad = strings.TrimPrefix(ad, "https://youtu.be/")
 		gId, _ := strconv.Atoi(gid)
 		pt := my.Post{
 			UserId:  int(user.Model.ID),
